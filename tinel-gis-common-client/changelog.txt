@@ -1,0 +1,7 @@
+Tinel GIS Common Client Changelog
+=============================================
+
+Changes in version 1.0 
+---------------------------------------------
+
+* first release

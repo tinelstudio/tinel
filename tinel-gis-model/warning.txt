@@ -1,0 +1,4 @@
+The Groovy script DbSchemaCreator.groovy in src/main/java creates complete
+schema in existing database, including tables, relations, keys and indices.
+If you change the data domain (domain objects), change this script too to
+keep it in sync.

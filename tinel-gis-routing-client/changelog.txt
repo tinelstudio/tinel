@@ -1,0 +1,7 @@
+TineL GIS Routing Client Changelog
+=============================================
+
+Changes in version 1.0
+---------------------------------------------
+
+* first release

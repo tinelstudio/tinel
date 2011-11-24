@@ -1,0 +1,14 @@
+TineL GIS Geocoding HTTP Invoker Changelog
+==================================================
+
+Changes in version 1.1 
+---------------------------------------------
+
+* branch off 'tinel-gis-geocoding-server' project to became only HTTP Invoker &
+  servlet related
+* updated web.xml to version 2.5
+
+Changes in version 1.0 
+---------------------------------------------
+
+* first release

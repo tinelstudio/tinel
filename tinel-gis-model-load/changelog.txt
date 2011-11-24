@@ -1,0 +1,12 @@
+TineL GIS Data Model Load Changelog
+=============================================
+
+Changes in version 1.1 
+---------------------------------------------
+
+* branch off 'tinel-gis-model-old' project to became only DB load related
+
+Changes in version 1.0
+---------------------------------------------
+
+* first release

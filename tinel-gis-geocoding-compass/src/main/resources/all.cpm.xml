@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE compass-core-mapping PUBLIC
+    "-//Compass/Compass Core Mapping DTD 2.2//EN"
+    "http://www.compass-project.org/dtd/compass-core-mapping-2.2.dtd">
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Compass mapping -->
+<compass-core-mapping package="net.tinelstudio.gis.model.domain">
+
+  <class name="GeoName" alias="GeoName">
+    <id name="id" />
+
+    <property name="name">
+      <meta-data>name</meta-data>
+    </property>
+
+    <property name="type">
+      <meta-data>type</meta-data>
+    </property>
+  </class>
+
+  <!-- 
+  <class name="Address" alias="Address">
+    <id name="id" />
+
+    <id-component name="names" prefix="geoname_" />
+    <dynamic-property name="names" name-property="type" value-property="name" />
+
+    <property name="houseNumber">
+      <meta-data>houseNumber</meta-data>
+    </property>
+  </class>
+  -->
+
+</compass-core-mapping>

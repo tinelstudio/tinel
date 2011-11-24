@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Maven 2 project configuration file http://maven.apache.org -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Project description -->
+  <parent>
+    <groupId>net.tinelstudio.gis</groupId>
+    <artifactId>tinel-gis</artifactId>
+    <version>1.5.0-SNAPSHOT</version>
+    <relativePath>../tinel-gis/pom.xml</relativePath>
+  </parent>
+
+  <groupId>net.tinelstudio.gis</groupId>
+  <artifactId>tinel-gis-reversegeocoding-server</artifactId>
+  <packaging>jar</packaging>
+  <name>TineL GIS Reverse Geocoding Server</name>
+  <description>The server providing the Reverse Geocoding service.</description>
+
+  <!-- Project build configuration -->
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- Eclipse -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <additionalBuildcommands>
+            <buildCommand>
+              <name>org.springframework.ide.eclipse.core.springbuilder</name>
+            </buildCommand>
+          </additionalBuildcommands>
+          <additionalProjectnatures>
+            <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+          </additionalProjectnatures>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- Additional repositories -->
+  <repositories>
+    <repository>
+      <id>refractions</id>
+      <name>Refractions Research Maven 2 Repository</name>
+      <url>http://lists.refractions.net/m2</url>
+    </repository>
+  </repositories>
+
+  <!-- Custom variables -->
+  <properties>
+    <spring.version>2.5.6.SEC01</spring.version>
+  </properties>
+
+  <!-- Project dependencies -->
+  <dependencies>
+  
+    <!-- Testing -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <version>2.5.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.easymock</groupId>
+      <artifactId>easymockclassextension</artifactId>
+      <version>2.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.tinelstudio.gis</groupId>
+      <artifactId>tinel-gis-common-server</artifactId>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Runtime -->
+    <!-- Own libraries -->
+    <dependency>
+      <groupId>net.tinelstudio</groupId>
+      <artifactId>tinel-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.tinelstudio.gis</groupId>
+      <artifactId>tinel-gis-model</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.tinelstudio.gis</groupId>
+      <artifactId>tinel-gis-common-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.tinelstudio.gis</groupId>
+      <artifactId>tinel-gis-common-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.tinelstudio.gis</groupId>
+      <artifactId>tinel-gis-reversegeocoding-client</artifactId>
+    </dependency>
+
+    <!-- Logging -->
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Common libraries -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- Other (specific) libraries -->
+    <dependency>
+      <groupId>com.vividsolutions</groupId>
+      <artifactId>jts</artifactId>
+      <version>1.9</version>
+    </dependency>
+
+  </dependencies>
+
+</project>

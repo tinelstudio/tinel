@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- GIS DB Configuration -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+  <!-- DB properties -->
+  <bean id="dbProperties"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="placeholderPrefix" value="$db{" />
+    <property name="ignoreResourceNotFound" value="true" />
+    <property name="locations">
+      <list>
+        <!-- Default properties -->
+        <value>classpath:db.properties</value>
+        <!-- User properties -->
+        <value>file:db.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- ======================= DB DEFINITIONS ======================= -->
+
+  <!-- Database connection configuration -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    destroy-method="close">
+    <property name="driverClassName">
+      <value>$db{jdbc.driverClassName}</value>
+    </property>
+    <property name="url">
+      <value>$db{jdbc.url}</value>
+    </property>
+    <property name="username">
+      <value>$db{jdbc.username}</value>
+    </property>
+    <property name="password">
+      <value>$db{jdbc.password}</value>
+    </property>
+  </bean>
+
+  <!-- Hibernate configuration -->
+  <bean id="sessionFactory"
+    class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">$db{hibernate.dialect}</prop>
+        <prop key="hibernate.show_sql">false</prop>
+        <prop key="hibernate.cache.provider_class">
+          org.hibernate.cache.EhCacheProvider
+        </prop>
+        <prop key="hibernate.cache.use_second_level_cache">true</prop>
+        <prop key="hibernate.cache.use_query_cache">true</prop>
+      </props>
+    </property>
+
+    <!-- Domain objects -->
+    <property name="packagesToScan">
+      <list>
+        <value>net.tinelstudio.gis.model.domain</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- Transaction manager -->
+  <bean id="transactionManager"
+    class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <!-- Transaction proxy (DAO) is annotation-driven with @Transactional -->
+  <tx:annotation-driven transaction-manager="transactionManager" />
+
+  <!-- =========================== HELPERS =========================== -->
+
+  <bean id="hibernateTemplate"
+    class="org.springframework.orm.hibernate3.HibernateTemplate"
+    lazy-init="true">
+    <property name="sessionFactory" ref="sessionFactory" />
+    <property name="cacheQueries" value="true" />
+  </bean>
+
+  <bean id="transactionTemplate"
+    class="org.springframework.transaction.support.TransactionTemplate"
+    lazy-init="true">
+    <property name="transactionManager" ref="transactionManager" />
+  </bean>
+
+  <!-- ============================= DAOS ============================= -->
+
+  <bean id="geoNameDao"
+    class="net.tinelstudio.gis.model.dao.hibernate.HibernateGeoNameDao"
+    lazy-init="true">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
+
+  <bean id="addressDao"
+    class="net.tinelstudio.gis.model.dao.hibernate.HibernateAddressDao"
+    lazy-init="true">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
+  
+  <bean id="streetDao"
+    class="net.tinelstudio.gis.model.dao.hibernate.HibernateStreetDao"
+    lazy-init="true">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
+  
+  <bean id="streetNodeDao"
+    class="net.tinelstudio.gis.model.dao.hibernate.HibernateStreetNodeDao"
+    lazy-init="true">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
+  
+  <bean id="buildingDao"
+    class="net.tinelstudio.gis.model.dao.hibernate.HibernateBuildingDao"
+    lazy-init="true">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
+
+  <bean id="findingDao"
+    class="net.tinelstudio.gis.model.dao.hibernate.HibernateFindingDao"
+    lazy-init="true">
+    <property name="hibernateTemplate" ref="hibernateTemplate" />
+  </bean>
+
+</beans>

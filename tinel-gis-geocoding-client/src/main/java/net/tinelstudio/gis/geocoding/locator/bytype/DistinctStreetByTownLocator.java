@@ -1,0 +1,24 @@
+/*
+ * Licensed under a Creative Commons Attribution 2.5 Slovenia License
+ * http://creativecommons.org/licenses/by/2.5/si/
+ * 2009 TineL Studio
+ */
+
+package net.tinelstudio.gis.geocoding.locator.bytype;
+
+import net.tinelstudio.gis.geocoding.locator.AbstractLocator;
+import net.tinelstudio.gis.geocoding.locator.Locator;
+
+/**
+ * Specifies which Streets are to be found. The given search string is compared
+ * only against street's town name. Only one street (usually first) per same
+ * town is found.
+ * 
+ * @author TineL
+ * @see Locator
+ */
+public class DistinctStreetByTownLocator extends AbstractLocator {
+
+  /** The <code>serialVersionUID</code>. */
+  private static final long serialVersionUID=7998164615568805837L;
+}

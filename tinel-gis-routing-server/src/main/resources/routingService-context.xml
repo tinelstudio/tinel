@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- GIS Routing Service Configuration -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- Service properties -->
+  <bean id="routingProperties"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="ignoreResourceNotFound" value="true" />
+    <property name="locations">
+      <list>
+        <!-- Default properties -->
+        <value>classpath:routing.properties</value>
+        <!-- User properties -->
+        <value>file:routing.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- =================== BUSINESS OBJECT DEFINITIONS =================== -->
+
+  <bean id="geometryFactory"
+    class="com.vividsolutions.jts.geom.GeometryFactory">
+    <constructor-arg>
+      <bean class="com.vividsolutions.jts.geom.PrecisionModel"/>
+    </constructor-arg>
+    <constructor-arg value="4326"/>
+  </bean>
+
+  <bean id="deserializer" class="net.tinelstudio.commons.jts.Deserializer">
+    <property name="geometryFactory" ref="geometryFactory"/>
+  </bean>
+
+  <bean id="aStarSearchAlgorithmFactory"
+    class="net.tinelstudio.gis.routing.searchalgorithm.astar.factory.DefaultAStarSearchAlgorithmFactory">
+    <property name="findingDao" ref="findingDao" />
+  </bean>
+
+  <bean id="routingService"
+    class="net.tinelstudio.gis.routing.service.TransactionalRoutingService">
+    <property name="AStarSearchAlgorithmFactory" ref="aStarSearchAlgorithmFactory" />
+    <property name="geometryFactory" ref="geometryFactory"/>
+    <property name="deserializer" ref="deserializer"/>
+    <!-- From DB configuration -->
+    <property name="findingDao" ref="findingDao" />
+    <property name="enabled">
+      <value>${enabled}</value>
+    </property>
+    <property name="streetNodeMaxDistanceMeters">
+      <value>${streetNodeMaxDistanceMeters}</value>
+    </property>
+  </bean>
+
+</beans>

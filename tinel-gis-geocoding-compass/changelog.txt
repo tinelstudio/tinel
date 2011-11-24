@@ -1,0 +1,7 @@
+TineL GIS Geocoding Compass Changelog
+=============================================
+
+Changes in version 1.0 
+---------------------------------------------
+
+* first release

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Maven 2 project configuration file http://maven.apache.org -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Project description -->
+  <groupId>net.tinelstudio</groupId>
+  <artifactId>tinel</artifactId>
+  <version>1.5.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>TineL Parent</name>
+
+  <inceptionYear>2009</inceptionYear>
+
+  <modules>
+    <module>tinel-commons</module>
+    <module>tinel-commons-db</module>
+    <module>tinel-gis</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+    
+      <dependency>
+        <groupId>net.tinelstudio</groupId>
+        <artifactId>tinel-commons</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>net.tinelstudio</groupId>
+        <artifactId>tinel-commons-db</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+    
+    </dependencies>
+  </dependencyManagement>
+  
+</project>

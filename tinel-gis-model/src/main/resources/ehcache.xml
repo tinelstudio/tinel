@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Ehcache Configuration -->
+<ehcache
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+  <diskStore path="java.io.tmpdir" />
+
+  <!-- Default entities & collections cache -->
+  <defaultCache maxElementsInMemory="100000" eternal="true"
+    overflowToDisk="false" />
+
+  <!-- Queries & timestamps cache -->
+  <cache name="org.hibernate.cache.StandardQueryCache"
+    maxElementsInMemory="100000" eternal="true" overflowToDisk="false" />
+  <cache name="org.hibernate.cache.UpdateTimestampsCache"
+    maxElementsInMemory="100000" eternal="true" overflowToDisk="false" />
+    
+</ehcache>

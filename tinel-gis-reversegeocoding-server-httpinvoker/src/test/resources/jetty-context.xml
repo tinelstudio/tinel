@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Jetty Configuration -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- =================== JETTY ENGINE DEFINITION =================== -->
+
+  <bean id="jetty" class="org.mortbay.jetty.Server" init-method="start"
+    destroy-method="stop">
+
+    <property name="connectors">
+      <list>
+        <bean class="org.mortbay.jetty.nio.SelectChannelConnector">
+          <property name="port">
+            <value>9081</value>
+          </property>
+        </bean>
+      </list>
+    </property>
+
+    <property name="handler">
+      <!-- Web application context -->
+      <bean class="org.mortbay.jetty.webapp.WebAppContext">
+        <property name="contextPath">
+          <value>/tinel-gis-reversegeocoding-server-httpinvoker</value>
+        </property>
+        <property name="war" value="src/main/webapp" />
+      </bean>
+    </property>
+
+    <property name="stopAtShutdown" value="true" />
+  </bean>
+
+</beans>

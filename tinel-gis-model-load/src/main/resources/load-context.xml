@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- GIS Loader Configuration -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+  <bean id="geometryFactory" class="com.vividsolutions.jts.geom.GeometryFactory"
+    lazy-init="true">
+    <constructor-arg type="com.vividsolutions.jts.geom.PrecisionModel" index="0">
+      <bean class="com.vividsolutions.jts.geom.PrecisionModel" />
+    </constructor-arg>
+    <constructor-arg type="int" index="1" value="4326" />
+  </bean>
+
+  <!-- Scan for and load @Component beans -->
+  <context:component-scan base-package="net.tinelstudio.gis.model.load" />
+
+</beans>

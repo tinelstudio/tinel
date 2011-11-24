@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- GIS Geocoding Service Configuration -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- HTTP Invoker exporter -->
+  <bean id="geocodingHttpExporter"
+    class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
+    <property name="service" ref="geocodingService" />
+    <property name="serviceInterface">
+      <value>net.tinelstudio.gis.geocoding.service.GeocodingService</value>
+    </property>
+  </bean>
+
+</beans>

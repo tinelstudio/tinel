@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Maven 2 project configuration file http://maven.apache.org -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--
+    TODO Currently flat modules structure - change to nested 
+  -->
+
+  <!-- Project description -->
+  <parent>
+    <groupId>net.tinelstudio</groupId>
+    <artifactId>tinel</artifactId>
+    <version>1.5.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>net.tinelstudio.gis</groupId>
+  <artifactId>tinel-gis</artifactId>
+  <packaging>pom</packaging>
+  <name>TineL GIS Parent</name>
+
+  <inceptionYear>2009</inceptionYear>
+
+  <modules>
+    <module>../tinel-gis-model</module>
+    <module>../tinel-gis-model-load</module>
+    <!-- Extra -->
+    <module>../tinel-gis-model-old</module>
+    <module>../tinel-gis-common-client</module>
+    <module>../tinel-gis-common-server</module>
+    <module>../tinel-gis-geocoding-client</module>
+    <module>../tinel-gis-geocoding-server</module>
+    <module>../tinel-gis-geocoding-server-httpinvoker</module>
+    <!-- Extra -->
+    <module>../tinel-gis-geocoding-compass</module>
+    <module>../tinel-gis-reversegeocoding-client</module>
+    <module>../tinel-gis-reversegeocoding-server</module>
+    <module>../tinel-gis-reversegeocoding-server-httpinvoker</module>
+    <module>../tinel-gis-routing-client</module>
+    <module>../tinel-gis-routing-server</module>
+    <module>../tinel-gis-routing-server-httpinvoker</module>
+    <!-- Extra -->
+    <module>../tinel-gis-client</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+    
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-model-load</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-model-old</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-common-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-common-server</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-common-server</artifactId>
+        <version>${project.version}</version>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-geocoding-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-geocoding-server</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-geocoding-server-httpinvoker</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-geocoding-compass</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-reversegeocoding-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-reversegeocoding-server</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-reversegeocoding-server-httpinvoker</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-routing-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-routing-client</artifactId>
+        <version>${project.version}</version>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-routing-server</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-routing-server-httpinvoker</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.tinelstudio.gis</groupId>
+        <artifactId>tinel-gis-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+</project>

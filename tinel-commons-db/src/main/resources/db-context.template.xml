@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Template DB Configuration -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+  <!-- JDBC properties -->
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="placeholderPrefix" value="$db{" />
+    <property name="ignoreResourceNotFound" value="true" />
+    <property name="locations">
+      <list>
+        <!-- Default properties -->
+        <value>classpath:jdbc.properties</value>
+        <!-- User properties -->
+        <value>file:jdbc.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- Hibernate properties -->
+  <bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <property name="ignoreResourceNotFound" value="true" />
+    <property name="locations">
+      <list>
+        <!-- Default properties -->
+        <value>classpath:hibernate.properties</value>
+        <!-- User properties -->
+        <value>file:hibernate.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="placeholderPrefix" value="$hb{" />
+    <property name="properties" ref="hibernateProperties" />
+  </bean>
+
+  <!-- ======================= DB DEFINITIONS ======================= -->
+
+  <!-- Database connection configuration -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    destroy-method="close">
+    <property name="driverClassName">
+      <value>$db{jdbc.driverClassName}</value>
+    </property>
+    <property name="url">
+      <value>$db{jdbc.url}</value>
+    </property>
+    <property name="username">
+      <value>$db{jdbc.username}</value>
+    </property>
+    <property name="password">
+      <value>$db{jdbc.password}</value>
+    </property>
+  </bean>
+
+  <!-- Hibernate configuration -->
+  <bean id="sessionFactory"
+    class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="hibernateProperties" ref="hibernateProperties" />
+    <!-- Domain objects -->
+    <property name="packagesToScan">
+      <list>
+        <value>$hb{hibernate.packagesToScan}</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- Transaction manager -->
+  <bean id="transactionManager"
+    class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <!-- Transaction proxy (DAO) is annotation-driven with @Transactional -->
+  <tx:annotation-driven transaction-manager="transactionManager" />
+
+  <!-- =========================== HELPERS =========================== -->
+
+  <bean id="hibernateTemplate"
+    class="org.springframework.orm.hibernate3.HibernateTemplate"
+    lazy-init="true">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <bean id="transactionTemplate"
+    class="org.springframework.transaction.support.TransactionTemplate"
+    lazy-init="true">
+    <property name="transactionManager" ref="transactionManager" />
+  </bean>
+
+</beans>

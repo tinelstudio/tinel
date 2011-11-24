@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Old GIS DB Configuration -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+  <!-- DB properties -->
+  <bean id="oldDbProperties"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="placeholderPrefix" value="$odb{" />
+    <property name="ignoreResourceNotFound" value="true" />
+    <property name="locations">
+      <list>
+        <!-- Default properties -->
+        <value>classpath:oldDb.properties</value>
+        <!-- User properties -->
+        <value>file:oldDb.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- ======================= DB DEFINITIONS ======================= -->
+
+  <!-- Database connection configuration -->
+  <bean id="oldDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    destroy-method="close">
+    <property name="driverClassName">
+      <value>$odb{jdbc.driverClassName}</value>
+    </property>
+    <property name="url">
+      <value>$odb{jdbc.url}</value>
+    </property>
+    <property name="username">
+      <value>$odb{jdbc.username}</value>
+    </property>
+    <property name="password">
+      <value>$odb{jdbc.password}</value>
+    </property>
+  </bean>
+
+  <!-- Hibernate configuration -->
+  <bean id="oldSessionFactory"
+    class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <property name="dataSource" ref="oldDataSource" />
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">$odb{hibernate.dialect}</prop>
+        <prop key="hibernate.show_sql">false</prop>
+        <prop key="hibernate.cache.provider_class">
+          org.hibernate.cache.EhCacheProvider
+        </prop>
+        <prop key="hibernate.cache.use_second_level_cache">true</prop>
+        <prop key="hibernate.cache.use_query_cache">true</prop>
+      </props>
+    </property>
+
+    <!-- Domain objects -->
+    <property name="packagesToScan">
+      <list>
+        <value>net.tinelstudio.gis.model.old.domain</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- Transaction Manager -->
+  <bean id="oldTxManager"
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="oldDataSource" />
+  </bean>
+
+  <!-- Transaction proxy (DAO) is annotation-driven with @Transactional -->
+  <tx:annotation-driven transaction-manager="oldTxManager" />
+
+  <!-- =========================== HELPERS =========================== -->
+
+  <bean id="oldHibernateTemplate"
+    class="org.springframework.orm.hibernate3.HibernateTemplate">
+    <property name="sessionFactory" ref="oldSessionFactory" />
+  </bean>
+  
+  <bean id="oldTransactionTemplate"
+    class="org.springframework.transaction.support.TransactionTemplate">
+    <property name="transactionManager" ref="oldTxManager" />
+  </bean>
+
+  <!-- ============================= DAOS ============================= -->
+
+  <bean id="oldStreetDao"
+    class="net.tinelstudio.gis.model.old.dao.hibernate.HibernateOldStreetDao">
+    <property name="sessionFactory" ref="oldSessionFactory" />
+  </bean>
+  
+  <bean id="gczzgradbeDao"
+    class="net.tinelstudio.gis.model.old.dao.hibernate.HibernateGczzgradbeDao">
+    <property name="sessionFactory" ref="oldSessionFactory" />
+  </bean>
+
+</beans>

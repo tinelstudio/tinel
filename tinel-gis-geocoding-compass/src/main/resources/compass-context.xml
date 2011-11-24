@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<!-- Compass Configuration -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- =================== BUSINESS OBJECT DEFINITIONS =================== -->
+
+  <bean id="compass" class="org.compass.spring.LocalCompassBean">
+    <property name="connection">
+      <!-- Index file -->
+      <value>file:target/index</value>
+    </property>
+    <property name="resourceLocations">
+      <list>
+        <value>classpath:all.cpm.xml</value>
+      </list>
+    </property>
+    <property name="transactionManager" ref="transactionManager" />
+  </bean>
+
+  <bean id="hibernateGpsDevice"
+    class="org.compass.gps.device.hibernate.HibernateGpsDevice">
+    <property name="name">
+      <value>hibernateGpsDevice</value>
+    </property>
+    <property name="sessionFactory" ref="sessionFactory" />
+    <property name="nativeExtractor">
+      <bean class="org.compass.spring.device.hibernate.SpringNativeHibernateExtractor" />
+    </property>
+  </bean>
+
+  <bean id="hibernateGps" class="org.compass.gps.impl.SingleCompassGps"
+    init-method="start" destroy-method="stop">
+    <property name="compass" ref="compass" />
+    <property name="gpsDevices">
+      <list>
+        <ref bean="hibernateGpsDevice" />
+      </list>
+    </property>
+  </bean>
+
+  <!-- =========================== HELPERS =========================== -->
+  
+  <bean id="compassTemplate" class="org.compass.core.CompassTemplate">
+    <property name="compass" ref="compass" />
+  </bean>
+
+</beans>

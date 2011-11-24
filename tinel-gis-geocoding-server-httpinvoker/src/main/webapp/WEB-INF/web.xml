@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed under a Creative Commons Attribution 2.5 Slovenia License
+  http://creativecommons.org/licenses/by/2.5/si/
+  2009 TineL Studio
+-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+    http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"
+  version="2.5">
+
+  <display-name>TineL GIS Geocoding HTTP Invoker Service</display-name>
+
+  <!-- Log4j logger -->
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>classpath:log4j.properties</param-value>
+  </context-param>
+
+  <!-- Unique Spring web application root directory key -->
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>httpinvoker.geocoding.root</param-value>
+  </context-param>
+  
+  <!-- Main Spring context to load -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/webApp-context.xml</param-value>
+  </context-param>
+
+  <!-- Listeners -->
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- Geocoding Servlet -->
+  <servlet>
+    <!--
+      When using HttpRequestHandlerServlet, servlet name must be same as bean
+      name
+    -->
+    <servlet-name>geocodingHttpExporter</servlet-name>
+    <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- Geocoding Servlet mapping -->
+  <servlet-mapping>
+    <servlet-name>geocodingHttpExporter</servlet-name>
+    <url-pattern>/remoting/GeocodingService</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>
